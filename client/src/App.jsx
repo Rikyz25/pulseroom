@@ -12,7 +12,7 @@ const API = import.meta.env.VITE_API_URL;
 
 
 
-/* ---------------- Toast ---------------- */
+/* ---------------- Toast ----------------*/
 
 function Toast({ message, type }) {
   if (!message) return null;
