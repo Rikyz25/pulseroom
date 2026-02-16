@@ -1,37 +1,31 @@
 -- CreateTable
 CREATE TABLE `Poll` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `roomId` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(191) NOT NULL,
     `question` VARCHAR(191) NOT NULL,
     `isClosed` BOOLEAN NOT NULL DEFAULT false,
+    `creatorToken` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
-    UNIQUE INDEX `Poll_roomId_key`(`roomId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Option` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `text` VARCHAR(191) NOT NULL,
-    `votes` INTEGER NOT NULL DEFAULT 0,
-    `weightedVotes` DOUBLE NOT NULL DEFAULT 0,
-    `pollId` INTEGER NOT NULL,
+    `pollId` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Vote` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `trustScore` DOUBLE NOT NULL DEFAULT 1,
-    `ipHash` VARCHAR(191) NOT NULL,
-    `userAgentHash` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `pollId` INTEGER NOT NULL,
-    `optionId` INTEGER NOT NULL,
+    `id` VARCHAR(191) NOT NULL,
+    `pollId` VARCHAR(191) NOT NULL,
+    `optionId` VARCHAR(191) NOT NULL,
+    `voterIp` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `Vote_pollId_ipHash_userAgentHash_key`(`pollId`, `ipHash`, `userAgentHash`),
+    UNIQUE INDEX `Vote_pollId_voterIp_key`(`pollId`, `voterIp`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
