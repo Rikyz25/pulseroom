@@ -104,9 +104,7 @@ router.post("/:id/vote", async (req, res) => {
 
     // Get voter IP
     const voterIp =
-      req.headers["x-forwarded-for"]?.split(",")[0] ||
-      req.socket.remoteAddress ||
-      "unknown";
+    req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress;
 
     // Check if already voted (anti-abuse)
     const existingVote = await prisma.vote.findFirst({

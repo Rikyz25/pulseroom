@@ -17,8 +17,9 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
+app.set("trust proxy", true);
 
-app.use("/api/polls", pollRoutes(io));
+app.use("/api/polls", pollRoutes);
 
 io.on("connection", (socket) => {
   socket.on("joinRoom", (roomId) => {
