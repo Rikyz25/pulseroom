@@ -8,7 +8,8 @@ import {
 } from "react-router-dom";
 import { X } from "lucide-react";
 
-const API = import.meta.env.VITE_API_URL;
+const API = "https://pulseroom.onrender.com/api/polls";
+
 
 
 
