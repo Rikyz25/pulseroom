@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Poll {
+  id           String   @id @default(uuid())
+  question     String
+  isClosed     Boolean  @default(false)
+  creatorToken String
+  options      Option[]
+  votes        Vote[]
+  createdAt    DateTime @default(now())
+}
+
+model Option {
+  id      String  @id @default(uuid())
+  text    String
+  pollId  String
+  poll    Poll    @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  votes   Vote[]
+}
+
+model Vote {
+  id       String @id @default(uuid())
+  pollId   String
+  optionId String
+  voterIp  String
+
+  poll     Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  option   Option @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@unique([pollId, voterIp])
+}
+
