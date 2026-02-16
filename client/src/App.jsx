@@ -7,7 +7,9 @@ import {
   useParams,
 } from "react-router-dom";
 import { X } from "lucide-react";
-const API = "https://pulseroom.onrender.com/api/polls";
+
+const API = import.meta.env.VITE_API_URL;
+
 
 
 /* ---------------- Toast ---------------- */
