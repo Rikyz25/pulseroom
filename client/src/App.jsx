@@ -271,7 +271,7 @@ function PollRoom() {
     );
 
   const totalVotes =
-    poll?.options?.reduce((acc, o) => acc + (o.votes?.length || 0), 0) || 0;
+  poll?.options?.reduce((acc, o) => acc + (o._count?.votes || 0), 0) || 0;
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#0f172a] to-[#020617] text-white">
