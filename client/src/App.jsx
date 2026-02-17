@@ -13,7 +13,7 @@ const API = "https://pulseroom.onrender.com/api/polls";
 
 
 
-/* ---------------- Toast ----------------*/
+/*  Toast */
 
 function Toast({ message, type }) {
   if (!message) return null;
@@ -32,7 +32,7 @@ function Toast({ message, type }) {
   );
 }
 
-/* ---------------- Home ---------------- */
+/* Home */
 
 function Home() {
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ function Home() {
 }
 
 
-/* ---------------- Create Poll ---------------- */
+/* Create Poll  */
 
 function CreatePoll() {
   const navigate = useNavigate();
@@ -116,7 +116,7 @@ function CreatePoll() {
   };
 
   const removeOption = (index) => {
-    if (options.length <= 2) return; // minimum 2
+    if (options.length <= 2) return; 
     setOptions(options.filter((_, i) => i !== index));
   };
 
@@ -180,7 +180,7 @@ function CreatePoll() {
             {options.length > 2 && (
               <button
                 type="button"
-                onClick={() => removeOption(index)}
+                onClick={() => removeOption(i)}
                 className="
                   text-gray-400
                   hover:text-red-400
@@ -214,7 +214,7 @@ function CreatePoll() {
   );
 }
 
-/* ---------------- Poll Room ---------------- */
+/* Poll Room  */
 
 function PollRoom() {
   const { id } = useParams();
@@ -301,19 +301,24 @@ function PollRoom() {
 
 
         <div className="mt-6 space-y-4">
-          {poll.options.map((opt) => {
-            const percent = totalVotes === 0 ? 0 : (voteCount / totalVotes) * 100;
+            {poll.options.map((opt) => {
+              const votes = opt._count?.votes ?? 0;
 
-            return (
-              <div
-                key={opt.id}
-                onClick={() => setSelectedOption(opt.id)}
-                className={`relative border rounded-xl p-4 cursor-pointer transition ${
-                  selectedOption === opt.id
-                    ? "border-indigo-500 bg-indigo-500/10"
-                    : "border-white/10 hover:border-indigo-400"
-                }`}
-              >
+              const percent =
+                totalVotes === 0
+                  ? 0
+                  : (votes / totalVotes) * 100;
+
+              return (
+                <div
+                  key={opt.id}
+                  onClick={() => setSelectedOption(opt.id)}
+                  className={`relative border rounded-xl p-4 cursor-pointer transition ${
+                    selectedOption === opt.id
+                      ? "border-indigo-500 bg-indigo-500/10"
+                      : "border-white/10 hover:border-indigo-400"
+                  }`}
+                >
                 <div
                   className="absolute left-0 top-0 h-full bg-indigo-500/20 rounded-xl transition-all duration-700"
                   style={{ width: `${percent}%` }}
@@ -322,7 +327,7 @@ function PollRoom() {
                 <div className="relative flex justify-between">
                   <span>{opt.text}</span>
                   <span className="text-gray-400 text-sm">
-                    {opt._count.votes}
+                    {votes}
                   </span>
                 </div>
               </div>
@@ -392,7 +397,7 @@ function PollRoom() {
   );
 }
 
-/* ---------------- App ---------------- */
+/* App */
 
 export default function App() {
   return (
